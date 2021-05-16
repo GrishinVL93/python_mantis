@@ -1,3 +1,4 @@
+from model import project
 from model.project import Project
 
 
@@ -20,6 +21,7 @@ class ProjectHelper:
 
     def create(self, project):
         wd = self.app.wd
+        self.open_projects()
         wd.find_element_by_xpath("//input[@value='Create New Project']").click()
         self.fill_form_project(project)
         wd.find_element_by_xpath("//input[@value='Add Project']").click()
@@ -48,6 +50,14 @@ class ProjectHelper:
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
         # confirmation
         wd.find_element_by_xpath("//input[@value='Delete Project']").click()
+
+    def delete_project_by_name(self, project):
+        wd = self.app.wd
+        self.open_projects()
+        wd.find_element_by_link_text(project.name).click()
+        wd.find_element_by_xpath("//div[4]/form/input[3]").click()
+        wd.find_element_by_css_selector("input.button").click()
+
 
     def open_project_by_index(self, index):
         wd = self.app.wd
